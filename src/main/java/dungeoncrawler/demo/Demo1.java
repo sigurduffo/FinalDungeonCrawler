@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class Demo1 {
     public static void main(String[] args) {
-        // Initialize TextIO
+        // TextIO
         TextIO io = new SystemTextIO();
 
         // Display game description
@@ -38,7 +38,7 @@ public class Demo1 {
         io.put(""); // Add an empty line for spacing
     }
 
-    // Method to add random entities to random locations
+    // Method to add random entity to a random location
     private static void addRandomEntities(Dungeon dungeon) {
         Random random = new Random();
 

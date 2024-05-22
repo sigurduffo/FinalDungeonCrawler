@@ -40,13 +40,13 @@ public class SimpleDungeonBuilder {
 			locations.add(builder.createLocation("Room " + (i + 1), "This is room " + (i + 1)));
 		}
 
-		// Ensure every room is accessible by connecting each room to at least one other room
+		// Ensuring every room is accessible by connecting each room to at least one other room
 		for (int i = 0; i < numLocations - 1; i++) {
 			builder.createPortal("Corridor", locations.get(i), locations.get(i + 1));
 			builder.createPortal("Corridor", locations.get(i + 1), locations.get(i));
 		}
 
-		// Add additional random connections to make the dungeon more complex
+		// More random connections to make the dungeon more complex
 		for (Location location : locations) {
 			int numPortals = random.nextInt(4) + 1; // Each room has between 1 and 4 portals
 			for (int j = 0; j < numPortals; j++) {
