@@ -13,7 +13,7 @@ public class GameCtrlImpl implements GameCtrl {
 
     @Override
     public void runGame(Dungeon dungeon, TextIO io) {
-        io.put("Welcome to the Dungeon Crawler game! The goal is to avoid encountering the computer-controlled entity more than twice.\n");
+        io.put("Welcome to the Dungeon Crawler game! The goal is to avoid encountering the computer-controlled entity more than twice.");
 
         Entity player = new SimpleEntity("Player", null);
         Entity computer = new SimpleEntity("Computer", new RandomEntityCtrl());
@@ -44,27 +44,18 @@ public class GameCtrlImpl implements GameCtrl {
                 io.put((i + 1) + ": Corridor to the " + direction);
             }
 
-            boolean validInput = false;
             int corridorIndex = -1;
-            while (!validInput) {
+            while (corridorIndex < 0 || corridorIndex >= corridors.size()) {
+                String input = io.get("Enter the number of the corridor to move: ");
                 try {
-                    String input = io.get("Enter the number of the corridor to move: ");
-                    if (input != null && !input.isEmpty()) {
-                        corridorIndex = Integer.parseInt(input) - 1;
-                        if (corridorIndex >= 0 && corridorIndex < corridors.size()) {
-                            validInput = true;
-                        } else {
-                            io.put("Invalid number. Please enter a number between 1 and " + corridors.size());
-                        }
-                    } else {
-                        io.put("Input cannot be empty. Please enter a number between 1 and " + corridors.size());
-                    }
+                    corridorIndex = Integer.parseInt(input) - 1;
                 } catch (NumberFormatException e) {
-                    io.put("Invalid input. Please enter a valid number between 1 and " + corridors.size());
+                    io.put("Invalid input. Please enter a number between 1 and " + corridors.size());
                 }
             }
 
             Portal chosenCorridor = corridors.get(corridorIndex);
+
             player.move(chosenCorridor);
             playerLocation = player.getLocation();
 
@@ -78,7 +69,7 @@ public class GameCtrlImpl implements GameCtrl {
 
             if (playerLocation.equals(computerLocation)) {
                 encounterCount++;
-                io.put("You encountered the computer! Encounter count: " + encounterCount + "\n");
+                io.put("You encountered the computer! Encounter count: " + encounterCount);
             }
 
             if (encounterCount >= 3) {
